@@ -1,1 +1,61 @@
-<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><style type="text/css">ol{margin:0;padding:0}table td,table th{padding:0}.c1{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}.c0{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c3{background-color:#ffffff;max-width:468pt;padding:72pt 72pt 72pt 72pt}.c2{height:11pt}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:11pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style></head><body class="c3 doc-content"><p class="c0"><span class="c1">&lt;!DOCTYPE html&gt;</span></p><p class="c0"><span class="c1">&lt;html lang=&quot;en&quot;&gt;</span></p><p class="c0"><span class="c1">&lt;head&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;meta charset=&quot;UTF-8&quot; /&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;title&gt;PNUT Search Bar&lt;/title&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;style&gt;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; body {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; display: flex;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; justify-content: center;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; align-items: center;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; height: 100vh;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; background-color: #f4f4f4;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; font-family: Arial, sans-serif;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; }</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; #searchForm {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; display: flex;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; gap: 10px;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; }</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; input[type=&quot;text&quot;] {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; width: 400px;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; padding: 10px;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; font-size: 16px;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; }</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; button {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; padding: 10px 20px;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; font-size: 16px;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; cursor: pointer;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; }</span></p><p class="c0"><span class="c1">&nbsp; &lt;/style&gt;</span></p><p class="c0"><span class="c1">&lt;/head&gt;</span></p><p class="c0"><span class="c1">&lt;body&gt;</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">&nbsp; &lt;form id=&quot;searchForm&quot;&gt;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &lt;input type=&quot;text&quot; id=&quot;searchInput&quot; placeholder=&quot;Search or enter URL...&quot; /&gt;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &lt;button type=&quot;submit&quot;&gt;Go&lt;/button&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;/form&gt;</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">&nbsp; &lt;script&gt;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; const form = document.getElementById(&#39;searchForm&#39;);</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; const input = document.getElementById(&#39;searchInput&#39;);</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">&nbsp; &nbsp; form.addEventListener(&#39;submit&#39;, function (e) {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; e.preventDefault();</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; const query = input.value.trim();</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; const urlPattern = /^(https?:\/\/)?([\w.-]+\.[a-z]{2,})(\/.*)?$/i;</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; let destination;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; if (urlPattern.test(query)) {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; &nbsp; destination = query.startsWith(&quot;http&quot;) ? query : &quot;https://&quot; + query;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; } else {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; &nbsp; destination = &quot;https://www.google.com/search?q=&quot; + encodeURIComponent(query);</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; }</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; window.location.href = destination;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; });</span></p><p class="c0"><span class="c1">&nbsp; &lt;/script&gt;</span></p><p class="c0 c2"><span class="c1"></span></p><p class="c0"><span class="c1">&lt;/body&gt;</span></p><p class="c0"><span class="c1">&lt;/html&gt;</span></p><p class="c0 c2"><span class="c1"></span></p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PNUT Search Bar</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+    #searchForm {
+      display: flex;
+      gap: 10px;
+    }
+    input[type="text"] {
+      width: 400px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="searchForm">
+    <input type="text" id="searchInput" placeholder="Search or enter URL..." />
+    <button type="submit">Go</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('searchForm');
+    const input = document.getElementById('searchInput');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const query = input.value.trim();
+
+      const urlPattern = /^(https?:\/\/)?([\w.-]+\.[a-z]{2,})(\/.*)?$/i;
+
+      let destination;
+      if (urlPattern.test(query)) {
+        destination = query.startsWith("http") ? query : "https://" + query;
+      } else {
+        destination = "https://www.google.com/search?q=" + encodeURIComponent(query);
+      }
+
+      window.location.href = destination;
+    });
+  </script>
+
+</body>
+</html>

@@ -6,167 +6,126 @@
   <title>PNUT search</title>
   <style>
     body {
+      font-family: sans-serif;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f1f3f4;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
+      padding: 0;
+      background: #f2f3f5;
     }
 
-    header {
-      background-color: #fff;
-      padding: 15px 20px;
+    .navbar {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 10px 20px;
+      background-color: white;
+      border-bottom: 1px solid #ccc;
     }
 
-    nav {
+    .tabs {
       display: flex;
-      gap: 20px;
+      gap: 15px;
     }
 
-    nav a {
+    .tabs a {
       text-decoration: none;
       color: #1a73e8;
       font-weight: bold;
-      font-size: 16px;
       cursor: pointer;
     }
 
-    .content {
-      flex: 1;
+    iframe {
+      border: none;
+      width: 100%;
+    }
+
+    .search-container {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 20px;
+      margin-top: 40px;
     }
 
-    .hidden {
-      display: none;
-    }
-
-    form {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    input[type="text"] {
+    .search-container input[type="text"] {
       width: 400px;
       padding: 10px;
       font-size: 16px;
     }
 
-    button {
-      padding: 10px 20px;
+    .search-container button {
+      margin-top: 10px;
+      padding: 8px 16px;
       font-size: 16px;
-      cursor: pointer;
     }
 
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .controls {
-      margin-top: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
+    .warning {
+      text-align: center;
+      padding: 10px;
+      background-color: #ffefc1;
+      color: #7a5e00;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-
-  <header>
-    <div>
-      <button onclick="location.reload()" style="font-size: 16px; padding: 5px 10px; cursor: pointer;">🔄 Refresh</button>
-    </div>
-    <nav>
+  <div class="navbar">
+    <button onclick="location.reload()">Refresh</button>
+    <div class="tabs">
       <a onclick="showTab('search')">Search</a>
       <a onclick="showTab('roblox')">Roblox</a>
-    </nav>
-  </header>
-
-  <div class="content">
-    <!-- Search Tab -->
-    <div id="searchTab">
-      <form id="searchForm">
-        <input type="text" id="searchInput" placeholder="Search or enter URL..." />
-        <button type="submit">Go</button>
-      </form>
-      <div class="controls">
-        <label>
-          <input type="checkbox" id="inSiteToggle" checked />
-          In Site: <span id="toggleStatus">On</span>
-        </label>
-      </div>
-      <div id="iframeContainer" style="margin-top: 20px; width: 100%; height: 80vh;" class="hidden">
-        <iframe id="browserFrame" allowfullscreen></iframe>
-      </div>
     </div>
-
-<!-- Roblox Tab -->
-<div id="robloxTab" class="hidden" style="width:100%; height:100%; display: flex; flex-direction: column;">
-  <div style="text-align: center; padding: 10px; background-color: #ffefc1; color: #7a5e00; font-weight: bold;">
-    works only sometimes
   </div>
-  <iframe src="https://www.easyfun.gg/embed/Roblox.html?start=1" allowfullscreen style="flex: 1;"></iframe>
-</div>
+
+  <!-- Search Tab -->
+  <div id="searchTab" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search or enter URL..." />
+      <button onclick="performSearch()">Go</button>
+      <label>
+        <input type="checkbox" id="inSiteToggle" checked />
+        In Site: <span id="inSiteStatus">On</span>
+      </label>
+    </div>
+    <div style="width: 90%; height: 80%; margin-top: 20px;">
+      <iframe id="browserFrame" style="height: 100%; width: 100%;"></iframe>
+    </div>
+  </div>
+
+  <!-- Roblox Tab -->
+  <div id="robloxTab" style="display: none; flex-direction: column; width: 100%; height: 100%;">
+    <div class="warning">works only sometimes</div>
+    <iframe src="https://www.easyfun.gg/embed/Roblox.html?start=1" allowfullscreen style="flex: 1;"></iframe>
+  </div>
 
   <script>
-    const searchForm = document.getElementById('searchForm');
-    const searchInput = document.getElementById('searchInput');
-    const inSiteToggle = document.getElementById('inSiteToggle');
-    const toggleStatus = document.getElementById('toggleStatus');
-    const iframeContainer = document.getElementById('iframeContainer');
-    const browserFrame = document.getElementById('browserFrame');
+    function showTab(tab) {
+      document.getElementById('searchTab').style.display = 'none';
+      document.getElementById('robloxTab').style.display = 'none';
 
-    let inSite = true;
+      document.getElementById(tab + 'Tab').style.display = 'flex';
+    }
 
-    inSiteToggle.addEventListener('change', () => {
-      inSite = inSiteToggle.checked;
-      toggleStatus.textContent = inSite ? "On" : "Off";
-      if (!inSite) {
-        iframeContainer.classList.add("hidden");
-      }
-    });
+    function performSearch() {
+      const input = document.getElementById("searchInput").value.trim();
+      const inSite = document.getElementById("inSiteToggle").checked;
+      const frame = document.getElementById("browserFrame");
 
-    searchForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const query = searchInput.value.trim();
-      const urlPattern = /^(https?:\/\/)?([\w.-]+\.[a-z]{2,})(\/.*)?$/i;
-      let destination;
-
-      if (urlPattern.test(query)) {
-        destination = query.startsWith("http") ? query : "https://" + query;
-      } else {
-        if (inSite) {
-          destination = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
-        } else {
-          destination = "https://www.google.com/search?q=" + encodeURIComponent(query);
-        }
-      }
+      const isUrl = input.startsWith("http://") || input.startsWith("https://");
 
       if (inSite) {
-        browserFrame.src = destination;
-        iframeContainer.classList.remove("hidden");
+        const url = isUrl ? input : `https://duckduckgo.com/?q=${encodeURIComponent(input)}`;
+        frame.src = url;
       } else {
-        window.location.href = destination;
+        const url = isUrl ? input : `https://www.google.com/search?q=${encodeURIComponent(input)}`;
+        window.location.href = url;
       }
+    }
+
+    document.getElementById("inSiteToggle").addEventListener("change", () => {
+      document.getElementById("inSiteStatus").innerText = document.getElementById("inSiteToggle").checked ? "On" : "Off";
     });
 
-    function showTab(tab) {
-      document.getElementById('searchTab').classList.add('hidden');
-      document.getElementById('robloxTab').classList.add('hidden');
-      document.getElementById(tab + 'Tab').classList.remove('hidden');
-    }
+    window.onload = () => {
+      showTab('search');
+    };
   </script>
-
 </body>
 </html>

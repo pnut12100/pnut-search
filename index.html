@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PNUT Site</title>
+  <title>PNUT search</title>
   <style>
     body {
       margin: 0;
@@ -73,12 +73,15 @@
 </head>
 <body>
 
-  <header>
-    <nav>
-      <a onclick="showTab('search')">Search</a>
-      <a onclick="showTab('roblox')">Roblox</a>
-    </nav>
-  </header>
+<header>
+  <div style="flex: 1;">
+    <button onclick="location.reload()" style="font-size: 16px; padding: 5px 10px; cursor: pointer;">Refresh</button>
+  </div>
+  <nav>
+    <a onclick="showTab('search')">Search</a>
+    <a onclick="showTab('roblox')">Roblox</a>
+  </nav>
+</header>
 
   <div class="content">
     <!-- Search Tab -->

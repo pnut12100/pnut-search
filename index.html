@@ -3,50 +3,114 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PNUT Search Bar</title>
+  <title>PNUT search</title>
   <style>
     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f1f3f4;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: flex-end;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #1a73e8;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .content {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-color: #f4f4f4;
-      font-family: Arial, sans-serif;
+      padding: 20px;
     }
-    #searchForm {
+
+    .hidden {
+      display: none;
+    }
+
+    form {
       display: flex;
       gap: 10px;
     }
+
     input[type="text"] {
       width: 400px;
       padding: 10px;
       font-size: 16px;
     }
+
     button {
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
     }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
   </style>
 </head>
 <body>
 
-  <form id="searchForm">
-    <input type="text" id="searchInput" placeholder="Search or enter URL..." />
-    <button type="submit">Go</button>
-  </form>
+  <header>
+    <nav>
+      <a onclick="showTab('search')">Search</a>
+      <a onclick="showTab('roblox')">Roblox</a>
+    </nav>
+  </header>
+
+  <div class="content">
+    <!-- Search Tab -->
+    <div id="searchTab">
+      <form id="searchForm">
+        <input type="text" id="searchInput" placeholder="Search or enter URL..." />
+        <button type="submit">Go</button>
+      </form>
+    </div>
+
+    <!-- Roblox Tab -->
+    <div id="robloxTab" class="hidden" style="width:100%; height:100%;">
+      <iframe src="https://www.easyfun.gg/embed/Roblox.html?start=1" allowfullscreen></iframe>
+    </div>
+  </div>
 
   <script>
+    function showTab(tab) {
+      document.getElementById('searchTab').classList.add('hidden');
+      document.getElementById('robloxTab').classList.add('hidden');
+      document.getElementById(tab + 'Tab').classList.remove('hidden');
+    }
+
     const form = document.getElementById('searchForm');
     const input = document.getElementById('searchInput');
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       const query = input.value.trim();
-
       const urlPattern = /^(https?:\/\/)?([\w.-]+\.[a-z]{2,})(\/.*)?$/i;
-
       let destination;
+
       if (urlPattern.test(query)) {
         destination = query.startsWith("http") ? query : "https://" + query;
       } else {

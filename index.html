@@ -18,7 +18,8 @@
       background-color: #fff;
       padding: 15px 20px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
@@ -50,6 +51,8 @@
     form {
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     input[type="text"] {
@@ -69,19 +72,26 @@
       height: 100%;
       border: none;
     }
+
+    .controls {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <div style="flex: 1;">
-    <button onclick="location.reload()" style="font-size: 16px; padding: 5px 10px; cursor: pointer;">Refresh</button>
-  </div>
-  <nav>
-    <a onclick="showTab('search')">Search</a>
-    <a onclick="showTab('roblox')">Roblox</a>
-  </nav>
-</header>
+  <header>
+    <div>
+      <button onclick="location.reload()" style="font-size: 16px; padding: 5px 10px; cursor: pointer;">🔄 Refresh</button>
+    </div>
+    <nav>
+      <a onclick="showTab('search')">Search</a>
+      <a onclick="showTab('roblox')">Roblox</a>
+    </nav>
+  </header>
 
   <div class="content">
     <!-- Search Tab -->
@@ -90,38 +100,72 @@
         <input type="text" id="searchInput" placeholder="Search or enter URL..." />
         <button type="submit">Go</button>
       </form>
+      <div class="controls">
+        <label>
+          <input type="checkbox" id="inSiteToggle" checked />
+          In Site: <span id="toggleStatus">On</span>
+        </label>
+      </div>
+      <div id="iframeContainer" style="margin-top: 20px; width: 100%; height: 80vh;" class="hidden">
+        <iframe id="browserFrame" allowfullscreen></iframe>
+      </div>
     </div>
 
-    <!-- Roblox Tab -->
-    <div id="robloxTab" class="hidden" style="width:100%; height:100%;">
-      <iframe src="https://www.easyfun.gg/embed/Roblox.html?start=1" allowfullscreen></iframe>
-    </div>
+<!-- Roblox Tab -->
+<div id="robloxTab" class="hidden" style="width:100%; height:100%; display: flex; flex-direction: column;">
+  <div style="text-align: center; padding: 10px; background-color: #ffefc1; color: #7a5e00; font-weight: bold;">
+    works only sometimes
   </div>
+  <iframe src="https://www.easyfun.gg/embed/Roblox.html?start=1" allowfullscreen style="flex: 1;"></iframe>
+</div>
 
   <script>
-    function showTab(tab) {
-      document.getElementById('searchTab').classList.add('hidden');
-      document.getElementById('robloxTab').classList.add('hidden');
-      document.getElementById(tab + 'Tab').classList.remove('hidden');
-    }
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const inSiteToggle = document.getElementById('inSiteToggle');
+    const toggleStatus = document.getElementById('toggleStatus');
+    const iframeContainer = document.getElementById('iframeContainer');
+    const browserFrame = document.getElementById('browserFrame');
 
-    const form = document.getElementById('searchForm');
-    const input = document.getElementById('searchInput');
+    let inSite = true;
 
-    form.addEventListener('submit', function (e) {
+    inSiteToggle.addEventListener('change', () => {
+      inSite = inSiteToggle.checked;
+      toggleStatus.textContent = inSite ? "On" : "Off";
+      if (!inSite) {
+        iframeContainer.classList.add("hidden");
+      }
+    });
+
+    searchForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      const query = input.value.trim();
+      const query = searchInput.value.trim();
       const urlPattern = /^(https?:\/\/)?([\w.-]+\.[a-z]{2,})(\/.*)?$/i;
       let destination;
 
       if (urlPattern.test(query)) {
         destination = query.startsWith("http") ? query : "https://" + query;
       } else {
-        destination = "https://www.google.com/search?q=" + encodeURIComponent(query);
+        if (inSite) {
+          destination = "https://duckduckgo.com/?q=" + encodeURIComponent(query);
+        } else {
+          destination = "https://www.google.com/search?q=" + encodeURIComponent(query);
+        }
       }
 
-      window.location.href = destination;
+      if (inSite) {
+        browserFrame.src = destination;
+        iframeContainer.classList.remove("hidden");
+      } else {
+        window.location.href = destination;
+      }
     });
+
+    function showTab(tab) {
+      document.getElementById('searchTab').classList.add('hidden');
+      document.getElementById('robloxTab').classList.add('hidden');
+      document.getElementById(tab + 'Tab').classList.remove('hidden');
+    }
   </script>
 
 </body>
